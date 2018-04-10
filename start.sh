@@ -25,6 +25,17 @@ if [ -n "$TRACKER_SERVER" ] ; then
     sed -i "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/storage.conf
     sed -i "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/client.conf
     sed -i "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/mod_fastdfs.conf
+else
+    host_ip="`hostname -I | awk -F '[ ]' '{print $1}'`";
+    TRACKER_SERVER="${host_ip}:22122"
+    if [ -n "$TRACKER_PORT" ] ; then
+        TRACKER_SERVER="${host_ip}:${TRACKER_PORT}"
+    fi
+    export TRACKER_SERVER
+
+    sed -i "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/storage.conf
+    sed -i "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/client.conf
+    sed -i "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/mod_fastdfs.conf
 fi
 
 if [ "$FASTDFS_MODE" != "all" ]; then

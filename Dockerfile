@@ -1,7 +1,5 @@
 FROM centos:7
-
-MAINTAINER alvin "tenkuking@163.com"
-
+LABEL maintainer="Alvin Jin<tenkuking@163.com>"
 ENV FASTDFS_PATH=/opt/fdfs \
     FASTDFS_BASE_PATH=/var/fdfs \
 	FASTDFS_TRACKER_PATH=/var/fdfs \

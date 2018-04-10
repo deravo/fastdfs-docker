@@ -3,34 +3,52 @@ services:
   fastdfs:
     container_name: fastdfs
     image: deravo/fastdfs
-    command: all
-    network_mode: host
-    environment:
-      - TRACKER_SERVER=172.16.20.153:22122
+    network_mode: bridge
+    # 环境变量
+    # environment:
+      # 指定TRACKER服务地址和端口，指定该变量后下面的 TRACKER_PORT 自动无效
+      # - TRACKER_SERVER=172.17.0.2:22222
+      # 指定 TRACKER 服务端口
+      # - TRACKER_PORT=22222
+    # 端口映射
+    ports:
+#     同时需要映射 TRACKER 端口
+#      - "22222:22222"
+#     默认端口
+      # TRACKER 端口
+      - "22122:22122"
+      # STORAGE 端口
+      - "23000:23000"
+      # Nginx 端口
+      - "23080:23080"
+    # 文件映射
     volumes:
-      - /var/fdfs:/var/fdfs
+      - ./start.sh:/usr/bin/start.sh
+      - ./:/var/fdfs
+    # 入口执行文件
+    entrypoint: ["/usr/bin/start.sh"]
+    # 执行文件 的 命令参数, all, tracker, storage，等等，默认是 all，启动所有服务
+    command: all
+    restart: unless-stopped
   #tracker:
   #  container_name: tracker
   #  image: deravo/fastdfs
   #  command: tracker
-  #  network_mode: host
   #  volumes:   
   #    - /var/fdfs:/var/fdfs    
   #storage:
   #  container_name: storage
   #  image: deravo/fastdfs
   #  command: storage
-  #  network_mode: host  
   #  environment:
-  #    - TRACKER_SERVER=172.16.20.153:22122
+  #    - TRACKER_SERVER=172.17.0.2:22122
   #  volumes: 
   #    - /var/fdfs:/var/fdfs
   #storage0:
   #  container_name: storage0
   #  command: storage
-  #  network_mode: host
   #  environment:
-  #    - TRACKER_SERVER=172.16.20.153:22122
+  #    - TRACKER_SERVER=172.17.0.2:22122
   #    - PORT=23001
   #    - DATA_PATH=storage0
   #    - GROUP=group1
