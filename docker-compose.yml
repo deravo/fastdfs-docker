@@ -1,39 +1,38 @@
-version: '3'
+version: "2"
 services:
-  tracker:
-    container_name: tracker
-    image: luhuiguo/fastdfs
-    command: tracker
+  fastdfs:
+    container_name: fastdfs
+    image: deravo/fastdfs
+    command: all
     network_mode: host
-    volumes:   
-      - /var/fdfs/tracker:/var/fdfs    
-  storage0:
-    container_name: storage0
-    image: luhuiguo/fastdfs
-    command: storage
-    network_mode: host  
     environment:
-      - TRACKER_SERVER=10.1.5.85:22122
-    volumes: 
-      - /var/fdfs/storage0:/var/fdfs
-  # storage1:
-  #   container_name: storage1
-  #   image: luhuiguo/fastdfs
-  #   command: storage
-  #   network_mode: host  
-  #   environment:
-  #     - TRACKER_SERVER=10.1.5.85:22122
-  #   volumes: 
-  #     - /var/fdfs/storage1:/var/fdfs
-  #  storage2:
-  #   container_name: storage2
-  #   image: luhuiguo/fastdfs
-  #   command: storage
-  #   network_mode: host  
-  #   environment:
-  #     - TRACKER_SERVER=10.1.5.85:22122
-  #     - GROUP_NAME=group2
-  #     - PORT=24000
-  #   volumes: 
-  #     - /var/fdfs/storage2:/var/fdfs           
-                    
+      - TRACKER_SERVER=172.16.20.153:22122
+    volumes:
+      - /var/fdfs:/var/fdfs
+  #tracker:
+  #  container_name: tracker
+  #  image: deravo/fastdfs
+  #  command: tracker
+  #  network_mode: host
+  #  volumes:   
+  #    - /var/fdfs:/var/fdfs    
+  #storage:
+  #  container_name: storage
+  #  image: deravo/fastdfs
+  #  command: storage
+  #  network_mode: host  
+  #  environment:
+  #    - TRACKER_SERVER=172.16.20.153:22122
+  #  volumes: 
+  #    - /var/fdfs:/var/fdfs
+  #storage0:
+  #  container_name: storage0
+  #  command: storage
+  #  network_mode: host
+  #  environment:
+  #    - TRACKER_SERVER=172.16.20.153:22122
+  #    - PORT=23001
+  #    - DATA_PATH=storage0
+  #    - GROUP=group1
+  #  volumes:
+  #    - /var/fdfs:/var/fdfs
