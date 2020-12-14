@@ -11,7 +11,7 @@
 ## Command To Run
 ### Build
 ```bash
-git clone http://b.dev.ycdmm.com:7990/scm/ycc/fastdfs.git .
+git clone https://github.com/deravo/fastdfs-docker.git .
 cd fastdfs
 docker build -t deravo/fastdfs .
 ```
